@@ -1,0 +1,272 @@
+.borderbox() {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.drop-shadow(@arguments) {
+    box-shadow: @arguments;
+}
+.border-radius(@arguments) {
+    -webkit-border-radius: @arguments;
+    -moz-border-radius: @arguments;
+    border-radius: @arguments;
+}
+.line-height(@value) {
+    @remValue: unit(@value);
+    @pxValue: (unit(@value) * 16);
+    line-height: ~"@{pxValue}px";
+    line-height: ~"@{remValue}rem";
+}
+.rotate(@deg) {
+    -webkit-transform: ~"rotate(@{deg}deg)";
+    -moz-transform: ~"rotate(@{deg}deg)";
+    -ms-transform: ~"rotate(@{deg}deg)";
+    -o-transform: ~"rotate(@{deg}deg)";
+    transform: ~"rotate(@{deg}deg)";
+}
+.translate(@x, @y) {
+    -webkit-transform: ~"translate(@{x}, @{y})";
+    -moz-transform: ~"translate(@{x}, @{y})";
+    -ms-transform: ~"translate(@{x}, @{y})";
+    -o-transform: ~"translate(@{x}, @{y})";
+    transform: ~"translate(@{x}, @{y})";
+}
+.translateY(@y) {
+    -webkit-transform: ~"translateY(@{y})";
+    -moz-transform: ~"translateY(@{y})";
+    -ms-transform: ~"translateY(@{y})";
+    -o-transform: ~"translateY(@{y})";
+    transform: ~"translateY(@{y})";
+}
+.translateX(@y) {
+    -webkit-transform: ~"translateX(@{y})";
+    -moz-transform: ~"translateX(@{y})";
+    -ms-transform: ~"translateX(@{y})";
+    -o-transform: ~"translateX(@{y})";
+    transform: ~"translateX(@{y})";
+}
+.transform(@arguments){
+    -webkit-transform: @arguments;
+    -moz-transform: @arguments;
+    -ms-transform: @arguments;
+    -o-transform: @arguments;
+    transform: @arguments;
+}
+.fonts(@sizeValue) {
+    @remValue: (@sizeValue / 16);
+    @pxValue: @sizeValue;
+    font-size: ~"@{pxValue}px"; 
+    font-size: ~"@{remValue}rem";
+}
+.transition(@arguments) {
+    -webkit-transition: @arguments;
+    -moz-transition: @arguments;
+    -o-transition: @arguments;
+    transition: @arguments;
+}
+.transition-delay(@arguments) {
+    -webkit-transition-delay: @arguments;
+    -moz-transition-delay: @arguments;
+    -o-transition-delay: @arguments;
+    transition-delay: @arguments;
+}
+.scale(@x, @y) {
+    -webkit-transform: ~"scale(@{x}, @{y})";
+    -moz-transform: ~"scale(@{x}, @{y})";
+    -ms-transform: ~"scale(@{x}, @{y})";
+    -o-transform: ~"scale(@{x}, @{y})";
+    transform: ~"scale(@{x}, @{y})";
+}
+.bg-gradient(@first, @second) { 
+    background: @first; /* Old browsers */
+    background: -moz-linear-gradient(top, @first 0%, @second 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,@first), color-stop(100%,@second)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, @first 0%,@second 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, @first 0%,@second 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, @first 0%,@second 100%); /* IE10+ */
+    background: linear-gradient(to bottom, @first 0%,@second 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@{first}', endColorstr='#{second}',GradientType=0 );
+}
+
+/* usage: .radial-gradient(50%, 50%, circle, cover, #ffffff, 0%, #000000, 100%); 
+    https://github.com/commons/less/blob/master/mixins/gradients/radial-gradient.less
+*/
+
+.radial-gradient(@centerX: center, @centerY: center, @shape: circle, @size: contain, @startColor: #555, @startPos: 0, @endColor: #333, @endPos: 100%) {
+    background-color:@endColor;
+    background-image: -moz-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+    background-image: -webkit-gradient(radial, @centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+    background-image: -webkit-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+    background-image: -o-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+    background-image: -ms-radial-gradient(@centerX @centerY, @shape @size, @startColor @startPos, @endColor @endPos);
+    background-image: radial-gradient(@shape at @centerX @centerY, @startColor @startPos, @endColor @endPos);
+}
+
+/*
+For centering an item, be sure to set its parent to
+
+    position:relative;
+    overflow:hidden;
+---------------------------*/
+.center-center() {
+    top:50%;
+    left:50%;
+    position:absolute;
+    .translate(-50%,-50%);
+}
+.vertical-middle() {
+    top:50%;
+    position:absolute;
+    .translateY(-50%);
+}
+.overflow-centered() {
+    left: 50%;
+    position: relative;
+    .translateX(-50%);
+}
+.rounded-box() {
+    background-color:white;
+    .border-radius(5px);
+    .drop-shadow(@drop-shadow);
+}
+.error-box() {
+    background:@info-red;
+    color:white;
+    .border-radius(5px);
+    padding:20px;
+    font-family:@font-bd;
+      .fonts(13);
+    text-transform:none;
+}
+
+/* More flexbox mixins at this github repo https://gist.github.com/jayj/4012969 */
+.flex-display(@display: flex) {
+    display: ~"-webkit-@{display}";
+    display: ~"-moz-@{display}";
+    display: ~"-ms-@{display}box"; // IE10 uses -ms-flexbox
+    display: ~"-ms-@{display}"; // IE11
+    display: @arguments;
+}
+.flex-flow(@arguments) {
+  -webkit-flex-flow: @arguments;
+     -moz-flex-flow: @arguments;
+      -ms-flex-flow: @arguments;
+          flex-flow: @arguments;
+}
+.flex-grow(@arguments) {
+  -webkit-flex-grow: @arguments;
+     -moz-flex-grow: @arguments;
+      -ms-flex-grow: @arguments;
+          flex-grow: @arguments;
+}
+.flex-shrink(@arguments) {
+  -webkit-flex-shrink: @arguments;
+     -moz-flex-shrink: @arguments;
+      -ms-flex-shrink: @arguments;
+          flex-shrink: @arguments;
+}
+.flex-order(@order: 0) {
+    -webkit-box-ordinal-group: @order;
+       -moz-box-ordinal-group: @order;
+               -ms-flex-order: @order;
+                -webkit-order: @order;
+                        order: @order;
+}
+.clearfix() {
+    &:after {
+        content: " "; // 1
+        display: table; // 2
+    }
+    &:after {
+        clear: both;
+    }
+}
+
+
+.stop-flicker() {
+    // Used to stop flicker when using css3 animations in webkit
+    // This preserves rounded borders, font sizes and stops other 
+    // rendering issues when a transform is being performed 
+    -webkit-transform-style: preserve-3d;
+}
+
+.size( @w, @h ) {
+    width: @w;
+    height: @h;
+}
+.arrow-down( @size, @color:transparent ) {
+    width: 0; 
+    height: 0; 
+    border-left: @size solid transparent;
+    border-right: @size solid transparent;
+    border-top: @size solid @color;
+}
+.remove-outlines() {
+    -webkit-outline: none;
+    -moz-outline: none;
+    -ms-outline: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.placeholder-color( @clr ) {
+    &::-webkit-input-placeholder { color: @clr; }
+    &:-moz-placeholder { color: @clr; opacity: 1; } /* firefox 18- */
+    &::-moz-placeholder { color: @clr; opacity: 1; } /* firefox 19+ */
+    &:-ms-input-placeholder { color: @clr; } /* ie */
+}
+/* Entertainment, restaurant, hotel mixins */
+.bordered-hdr() {
+    text-align: center;
+    text-transform: uppercase;
+    font-family: @font-md-cd;
+    .fonts(14);
+    line-height: 16px;
+    padding: 0px 0 30px;
+    margin: 0 25px;
+    overflow: hidden;
+    &:before {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    @media screen and (min-width:745px) {
+        width: 375px;
+        padding: 0 0 40px;
+        margin: 0 auto;
+    }
+    @media screen and (min-width:925px) {
+        .fonts(18);
+        width: 398px;
+        //margin: 0 auto;
+    }
+    
+    span {
+        display: inline-block;
+        position: relative;
+        padding: 0 10px;
+        z-index: @index-artist-hdr;
+    }
+
+    span:before, span:after {
+        border-top: 1px solid @brand-gold-light;
+        width: 720px;
+        position: absolute;
+        height: 0px;
+        top: 50%;
+        content: "";
+        display: block;
+    }
+    @media screen and (min-width:745px) {
+        overflow: visible;
+        span:before, span:after {
+            width: 100px;
+        }
+    }
+    span:before {
+        left: 100%;
+    }
+    span:after {
+        right: 100%;
+    }
+}
