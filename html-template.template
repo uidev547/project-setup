@@ -1,0 +1,4 @@
+<div class="holder-icon">
+icon name: icon-{{name}}
+<span class="icon-{{name}}"></span>
+</div>

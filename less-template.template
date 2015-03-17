@@ -1,0 +1,6 @@
+.icon-{{name}}{
+	&:before {
+		background-image: url({{datauri}});
+	}
+}
+

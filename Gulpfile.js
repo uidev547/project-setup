@@ -27,11 +27,37 @@ gulp.task('scss', function () {
 var uri = require('gulp-data-uri-stream');
 var concat = require('gulp-concat');
 gulp.task('data-urify', function() {
-    return gulp.src('library/images/**/*.svg')
-        .pipe(uri({ output: 'json' }))
-        .pipe(concat("URIs.json"))
+    return gulp.src('library/images/svg/*.svg')
+        .pipe(uri({ 
+			output: 'template',
+			templateUrl: 'less-variables.template'
+		}))
+        .pipe(concat("icon-variables.less"))
+        .pipe(gulp.dest("./library/less/config"));
+});
+
+gulp.task('icon-less', function() {
+    return gulp.src('library/images/svg/*.svg')
+        .pipe(uri({ 
+			output: 'template',
+			templateUrl: 'less-template.template'
+		}))
+        .pipe(concat("icons.less"))
+        .pipe(gulp.dest("./library/less/global/icons"));
+});
+
+gulp.task('icon-demo-page', function() {
+    return gulp.src('library/images/svg/*.svg')
+        .pipe(uri({ 
+			output: 'template',
+			templateUrl: 'html-template.template'
+		}))
+        .pipe(concat("icons.html"))
         .pipe(gulp.dest("./"));
 });
+
+gulp.task('svg-data-uri',['icon-demo-page','icon-less','data-urify']);
+
 
 /*jshint comes here*/
 var stylish = require('jshint-stylish');
@@ -61,18 +87,3 @@ gulp.task('build-js',[ 'jshint' ], function() {
     .pipe(gulp.dest('./build/js'));
 });
 
-/* 
-*image compression
-*/
-var gulp = require('gulp');
-var imagemin = require('gulp-imagemin');
-var pngquant = require('imagemin-pngquant');
-gulp.task('imagemin', function () {
-    return gulp.src('./library/images/**/*')
-        .pipe(imagemin({
-            progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
-            use: [pngquant()]
-        }))
-        .pipe(gulp.dest('./build/images'));
-});
