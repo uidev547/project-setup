@@ -23,6 +23,8 @@ gulp.task('scss', function () {
 		.pipe( sourcemaps.write() )
         .pipe(gulp.dest('./library/css/'));
 });
+
+
 /*svg to data uri conversion*/
 var uri = require('gulp-data-uri-stream');
 var concat = require('gulp-concat');
@@ -30,7 +32,7 @@ gulp.task('data-urify', function() {
     return gulp.src('library/images/svg/*.svg')
         .pipe(uri({ 
 			output: 'template',
-			templateUrl: 'less-variables.template'
+			templateUrl: 'gulp/templates/less-variables.template'
 		}))
         .pipe(concat("icon-variables.less"))
         .pipe(gulp.dest("./library/less/config"));
@@ -40,7 +42,7 @@ gulp.task('icon-less', function() {
     return gulp.src('library/images/svg/*.svg')
         .pipe(uri({ 
 			output: 'template',
-			templateUrl: 'less-template.template'
+			templateUrl: 'gulp/templates/less-template.template'
 		}))
         .pipe(concat("icons.less"))
         .pipe(gulp.dest("./library/less/global/icons"));
@@ -50,13 +52,15 @@ gulp.task('icon-demo-page', function() {
     return gulp.src('library/images/svg/*.svg')
         .pipe(uri({ 
 			output: 'template',
-			templateUrl: 'html-template.template'
+			templateUrl: 'gulp/templates/html-template.template'
 		}))
-        .pipe(concat("icons.html"))
+        .pipe(concat("docs/gulp-build/icons.html"))
         .pipe(gulp.dest("./"));
 });
 
 gulp.task('svg-data-uri',['icon-demo-page','icon-less','data-urify']);
+
+
 
 
 /*jshint comes here*/
@@ -80,7 +84,6 @@ gulp.task('build-css', ['scss'], function() {
 /*uglify js files*/
 var uglify = require( 'gulp-uglify' );
 var sourcemaps = require('gulp-sourcemaps');
-
 gulp.task('build-js',[ 'jshint' ], function() {
   return gulp.src('./library/js/**/*.js')
     .pipe(uglify())
