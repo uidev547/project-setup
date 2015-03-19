@@ -4,14 +4,13 @@ Colors codes
 @black: #000;
 @white: #fff;
 
-$brand-color : #000;
-$brand-80-color: rgba($brand-color, 0.8);
+@brand-color : #000;
 
-$header-background-color: $brand-80-color;
-$header-color: @white;
+@header-background-color: @brand-color;
+@header-color: @white;
 
-$footer-background-color: $brand-80-color;
-$footer-color: @white;
+@footer-background-color: @brand-color;
+@footer-color: @white;
 
 
 
@@ -19,24 +18,25 @@ $footer-color: @white;
 ---------------------------*/
 @font-tre-hel:   "Trebuchet MS", Helvetica, sans-serif;  
 @font-luc-luc:   "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-@font-hel-aria: Helvetica,Aria
+@font-hel-aria: Helvetica,Aria;
 
 /*
 Fonts - sizes
 ---------------------------*/
-@font-size-small : 12px;
-@font-size-base:16px;
-@font-size-large : 24px;
-@font-size-x-large : 32px;
-@font-size-xx-large : 48px;
+
+@font-size-small: 12px;
+@font-size-base: 16px;
+@font-size-large: 24px;
+@font-size-x-large: 32px;
+@font-size-xx-large: 48px;
 @line-height-base: 1.428571429; // 20/14
 @headings-line-height: 1.1;
 
 /** font-weights
 -----------------------------*/
-$font-weight-light:	300
-$font-weight-regular:	400
-$font-weight-bold:	600 
+@font-weight-light:	300;
+@font-weight-regular:	400;
+@font-weight-bold:	600;
 
 /*
 Drop Shadows

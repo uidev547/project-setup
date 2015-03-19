@@ -17,46 +17,18 @@
     line-height: ~"@{pxValue}px";
     line-height: ~"@{remValue}rem";
 }
+.fonts(@sizeValue) {
+    @remValue: (@sizeValue / 16);
+    @pxValue: @sizeValue;
+    font-size: ~"@{pxValue}px"; 
+    font-size: ~"@{remValue}rem";
+}
 .rotate(@deg) {
     -webkit-transform: ~"rotate(@{deg}deg)";
     -moz-transform: ~"rotate(@{deg}deg)";
     -ms-transform: ~"rotate(@{deg}deg)";
     -o-transform: ~"rotate(@{deg}deg)";
     transform: ~"rotate(@{deg}deg)";
-}
-.translate(@x, @y) {
-    -webkit-transform: ~"translate(@{x}, @{y})";
-    -moz-transform: ~"translate(@{x}, @{y})";
-    -ms-transform: ~"translate(@{x}, @{y})";
-    -o-transform: ~"translate(@{x}, @{y})";
-    transform: ~"translate(@{x}, @{y})";
-}
-.translateY(@y) {
-    -webkit-transform: ~"translateY(@{y})";
-    -moz-transform: ~"translateY(@{y})";
-    -ms-transform: ~"translateY(@{y})";
-    -o-transform: ~"translateY(@{y})";
-    transform: ~"translateY(@{y})";
-}
-.translateX(@y) {
-    -webkit-transform: ~"translateX(@{y})";
-    -moz-transform: ~"translateX(@{y})";
-    -ms-transform: ~"translateX(@{y})";
-    -o-transform: ~"translateX(@{y})";
-    transform: ~"translateX(@{y})";
-}
-.transform(@arguments){
-    -webkit-transform: @arguments;
-    -moz-transform: @arguments;
-    -ms-transform: @arguments;
-    -o-transform: @arguments;
-    transform: @arguments;
-}
-.fonts(@sizeValue) {
-    @remValue: (@sizeValue / 16);
-    @pxValue: @sizeValue;
-    font-size: ~"@{pxValue}px"; 
-    font-size: ~"@{remValue}rem";
 }
 .transition(@arguments) {
     -webkit-transition: @arguments;
@@ -114,64 +86,19 @@ For centering an item, be sure to set its parent to
     position:absolute;
     .translate(-50%,-50%);
 }
-.vertical-middle() {
-    top:50%;
-    position:absolute;
-    .translateY(-50%);
-}
-.overflow-centered() {
-    left: 50%;
-    position: relative;
-    .translateX(-50%);
-}
-.rounded-box() {
-    background-color:white;
-    .border-radius(5px);
-    .drop-shadow(@drop-shadow);
-}
-.error-box() {
-    background:@info-red;
-    color:white;
-    .border-radius(5px);
-    padding:20px;
-    font-family:@font-bd;
-      .fonts(13);
-    text-transform:none;
-}
-
-/* More flexbox mixins at this github repo https://gist.github.com/jayj/4012969 */
-.flex-display(@display: flex) {
-    display: ~"-webkit-@{display}";
-    display: ~"-moz-@{display}";
-    display: ~"-ms-@{display}box"; // IE10 uses -ms-flexbox
-    display: ~"-ms-@{display}"; // IE11
-    display: @arguments;
-}
-.flex-flow(@arguments) {
-  -webkit-flex-flow: @arguments;
-     -moz-flex-flow: @arguments;
-      -ms-flex-flow: @arguments;
-          flex-flow: @arguments;
-}
-.flex-grow(@arguments) {
-  -webkit-flex-grow: @arguments;
-     -moz-flex-grow: @arguments;
-      -ms-flex-grow: @arguments;
-          flex-grow: @arguments;
-}
-.flex-shrink(@arguments) {
-  -webkit-flex-shrink: @arguments;
-     -moz-flex-shrink: @arguments;
-      -ms-flex-shrink: @arguments;
-          flex-shrink: @arguments;
-}
-.flex-order(@order: 0) {
-    -webkit-box-ordinal-group: @order;
-       -moz-box-ordinal-group: @order;
-               -ms-flex-order: @order;
-                -webkit-order: @order;
-                        order: @order;
-}
+.vertical-middle( @value:100% ) {
+	content: '';
+	display: inline-block;
+	width: 0;
+	min-height: @value;
+	vertical-align: middle;
+	margin-left: -.25em;
+	text-align: center;
+	&>div {
+		display: inline-block;
+		vertical-align: middle;
+	}
+} 
 .clearfix() {
     &:after {
         content: " "; // 1
@@ -182,18 +109,6 @@ For centering an item, be sure to set its parent to
     }
 }
 
-
-.stop-flicker() {
-    // Used to stop flicker when using css3 animations in webkit
-    // This preserves rounded borders, font sizes and stops other 
-    // rendering issues when a transform is being performed 
-    -webkit-transform-style: preserve-3d;
-}
-
-.size( @w, @h ) {
-    width: @w;
-    height: @h;
-}
 .arrow-down( @size, @color:transparent ) {
     width: 0; 
     height: 0; 
@@ -215,58 +130,4 @@ For centering an item, be sure to set its parent to
     &:-moz-placeholder { color: @clr; opacity: 1; } /* firefox 18- */
     &::-moz-placeholder { color: @clr; opacity: 1; } /* firefox 19+ */
     &:-ms-input-placeholder { color: @clr; } /* ie */
-}
-/* Entertainment, restaurant, hotel mixins */
-.bordered-hdr() {
-    text-align: center;
-    text-transform: uppercase;
-    font-family: @font-md-cd;
-    .fonts(14);
-    line-height: 16px;
-    padding: 0px 0 30px;
-    margin: 0 25px;
-    overflow: hidden;
-    &:before {
-        margin-top: 0;
-        margin-bottom: 10px;
-    }
-    @media screen and (min-width:745px) {
-        width: 375px;
-        padding: 0 0 40px;
-        margin: 0 auto;
-    }
-    @media screen and (min-width:925px) {
-        .fonts(18);
-        width: 398px;
-        //margin: 0 auto;
-    }
-    
-    span {
-        display: inline-block;
-        position: relative;
-        padding: 0 10px;
-        z-index: @index-artist-hdr;
-    }
-
-    span:before, span:after {
-        border-top: 1px solid @brand-gold-light;
-        width: 720px;
-        position: absolute;
-        height: 0px;
-        top: 50%;
-        content: "";
-        display: block;
-    }
-    @media screen and (min-width:745px) {
-        overflow: visible;
-        span:before, span:after {
-            width: 100px;
-        }
-    }
-    span:before {
-        left: 100%;
-    }
-    span:after {
-        right: 100%;
-    }
 }
