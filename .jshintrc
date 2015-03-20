@@ -1,7 +1,8 @@
 {	
 	"globals" :{
 		"$" : false,
-		"define": false
+		"define": false,
+		"require": false
 	},
     "laxcomma": true,       // Suppresses warnings about comma-first coding style http://www.jshint.com/docs/options/#laxcomma
 	"browser": true,        // This option defines globals exposed by modern browsers http://www.jshint.com/docs/options/#browser

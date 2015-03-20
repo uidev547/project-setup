@@ -4,15 +4,15 @@
     if ( typeof define === 'function' && define.amd ) {
 
         // AMD. Register as an anonymous module.
-        define( factory );
+        define( [ 'modules/pubsub' ], factory );
 
     } else {
 
         // Browser global
-        root.viewport = factory();
+        root.viewport = factory( root.pubsub );
     }
 
-} )( this, ( function( pubsub ) {
+} )( this, function( pubsub ) {
     
 
     var vp = function ( input ) {
@@ -101,4 +101,4 @@
 
     return vp;
 
-})( this.pubsub) );
+} );

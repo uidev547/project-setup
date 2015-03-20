@@ -68,7 +68,8 @@ var stylish = require('jshint-stylish');
 var jshint = require('gulp-jshint');
 var gulp   = require('gulp');
 gulp.task('jshint', function() {
-  return gulp.src('./library/**/*.js')
+	['app/**', '!app/_tmp/**']
+  return gulp.src(['./library/**/*.js', '!./library/js/vendors/*.js','!./library/js/config/*.js'] )
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });

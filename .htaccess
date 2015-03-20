@@ -8,7 +8,7 @@ DirectoryIndex index.shtml index.html index.htm index.php
 FileETag none
 
 # Redirect Service requests to the correct directory
-RedirectMatch (.*)/pageComponents/.+/services(.*)$ $1/services$2
+RedirectMatch (.*)/pages/.+/services(.*)$ $1/services$2
 
 # Make sure IE renders in standards mode
 Header set X-UA-Compatible "IE=edge"
