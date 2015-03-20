@@ -1,13 +1,18 @@
 require(
     [
         'jquery',
-        'vendors/owl.carousel'
+		'modules/common',
+        'vendors/owl.carousel',
+        'modules/pubsub'
     ],
     function( 
         $,
-        owl
+		common,
+        owl,
+        pubsub
     ) {
-         $(document).ready(function() {
+		common.init();
+        pubsub( 'document/ready' ).subscribe(function() {
  
             $( '#owl-demo' ).owlCarousel({
                 items : 1,

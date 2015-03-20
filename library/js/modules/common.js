@@ -1,7 +1,17 @@
-/**
- * self executing function script loaded
- */
-; ( function( pubsub ) {
+ ;( function ( root, factory ) {
+
+    if ( typeof define === 'function' && define.amd ) {
+
+        // AMD. Register as an anonymous module.
+        define( ['jquery', 'modules/pubsub'], factory );
+		
+    } else {
+
+        // Browser global
+        root.common = factory( root.jQuery, root.pubsub );
+    }
+
+} )( this,function( $, pubsub ) {
     
     var resizeTimer
         , innerWidth
@@ -56,8 +66,16 @@
         pubsub( 'window/scroll' ).publish();
 
     } );
+	
+	var init = function() {
+		console.log( 'init' );
+	}
+	
+	return {
+		init: init
+	};
 
 
-} )( window.pubsub );
+} );
 
 

@@ -1,4 +1,17 @@
-;( function( root ) {
+;( function ( root, factory ) {
+
+    if ( typeof define === 'function' && define.amd ) {
+
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+
+    } else {
+
+        // Browser global
+        root.cookies = factory( root.jQuery );
+    }
+
+} )( this, function( $ ) {
     var topics = {};
 
     /**
@@ -27,7 +40,7 @@
      * @param {string} id Pubsub instance ID.
      * @return {object} pubsub API for current instance with ID `id`.
      */
-    root.pubsub = function( id ) {
+    return function( id ) {
 
         var callbacks, topic;
 
@@ -77,5 +90,5 @@
 
         return topic;
     };
-} )( this );
+} );
 
