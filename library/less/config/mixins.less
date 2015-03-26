@@ -42,6 +42,21 @@
     -o-transition-delay: @arguments;
     transition-delay: @arguments;
 }
+.animation(@arguments) {
+ -webkit-animation: @arguments;
+    -moz-animation: @arguments;
+     -ms-animation: @arguments;
+   -o-animation: @arguments;
+         animation: @arguments;
+}
+.animationDelay(@arguments) {
+ -webkit-animation-delay: @arguments;
+    -moz-animation-delay: @arguments;
+     -ms-animation-delay: @arguments;
+   -o-animation-delay: @arguments;
+         animation-delay: @arguments;
+}
+
 .scale(@x, @y) {
     -webkit-transform: ~"scale(@{x}, @{y})";
     -moz-transform: ~"scale(@{x}, @{y})";
@@ -87,13 +102,15 @@ For centering an item, be sure to set its parent to
     .translate(-50%,-50%);
 }
 .vertical-middle( @value:100% ) {
-	content: '';
-	display: inline-block;
-	width: 0;
-	min-height: @value;
-	vertical-align: middle;
-	margin-left: -.25em;
-	text-align: center;
+    &:before {
+        content: '';
+        display: inline-block;
+        width: 0;
+        min-height: 100%;
+        vertical-align: middle;
+        margin-left: -0.25em;
+        text-align: center;
+    }
 	&>div {
 		display: inline-block;
 		vertical-align: middle;
@@ -115,6 +132,13 @@ For centering an item, be sure to set its parent to
     border-left: @size solid transparent;
     border-right: @size solid transparent;
     border-top: @size solid @color;
+}
+.arrow-left( @size, @color:transparent ) {
+    width: 0; 
+    height: 0; 
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent;
+    border-right: @size solid @color;
 }
 .remove-outlines() {
     -webkit-outline: none;

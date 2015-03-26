@@ -3,13 +3,15 @@ require(
         'jquery',
 		'modules/common',
         'vendors/owl.carousel',
-        'modules/pubsub'
+        'modules/pubsub',
+        'modules/fixednav.jquery'
     ],
     function( 
         $,
 		common,
         owl,
-        pubsub
+        pubsub,
+        fixednav
     ) {
 		common.init();
         pubsub( 'document/ready' ).subscribe(function() {
@@ -36,7 +38,12 @@ require(
                 }
                 
 
-            }); 
+            });
+
+            fixednav.init( {
+                selector:"[data-section-desc]:visible",
+                minslides:3
+            } ); 
 
         });  
     }

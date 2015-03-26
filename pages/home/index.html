@@ -2,17 +2,65 @@
 <body>
 	<!--#include virtual="../base/header/index.html" -->
   <div class="base-layout">
-	   <h1 class="page-title">This is home page Title</h1>
-     <div id="owl-demo" class="owl-carousel">
+	  <h1 class="page-title">This is home page Title</h1>
+    <div id="owl-demo" class="owl-carousel"  data-section-desc="carousel">
       <div class="item"><img class="lazyOwl" data-src="services/dummyimage/1440x550" alt="Lazy Owl Image"></div>
       <div class="item"><img class="lazyOwl" data-src="services/dummyimage/1440x550" alt="Lazy Owl Image"></div>
       <div class="item"><img class="lazyOwl" data-src="services/dummyimage/1440x550" alt="Lazy Owl Image"></div>
       <div class="item"><img class="lazyOwl" data-src="services/dummyimage/1440x550" alt="Lazy Owl Image"></div>
     </div>
+
+
+    <div class="section"  data-section-desc="section 1" style="height: 500px">
+        section 1
+    </div>
+
+    <div class="section"  data-section-desc="section 2" style="height: 500px">
+        section 2
+    </div>
+
+    <div class="section"  data-section-desc="section 3" style="height: 500px">
+        section 3
+    </div>
+
+    <div class="section"  data-section-desc="section 4" style="height: 500px">
+        section 4
+    </div>
+
+
   </div>
+
 	<!--#include virtual="../base/footer/index.html" -->
   <!--#include virtual="footer-assets.html" -->
+  <div id="fixed-nav-bullets-container">
+     <div class="nav-bullets-holder">
+        <a href="#" id="fixed-section-top" class="fixed-section-bullet" title="up">
+          <span class="arrow-up">
+          </span>
+          <span class="hide">
+            up
+          </span>
+        </a>
+        <div id="fixed-nav-bullets">
+        </div>
+        <a href="#" id="fixed-section-bottom" class="fixed-section-bullet" title="down">
+          <span class="arrow-down">
+          </span>
+        </a>
+     </div>
+  </div>
+
   
+  <script id="bullet-template" type="text/template">
+    <a href="#" class="fixed-section-bullet" data-counter="{{counter}}" title="{{desc}}">
+      <span class="bullet">
+      </span>
+      <div class="fixed-section-bullet-info">
+         <div class="info-arrow"></div><div class="info-text">{{desc}}</div>
+      </div>
+    </a>
+  </script>
+
   
 
 </body>
