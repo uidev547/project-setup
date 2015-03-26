@@ -26,6 +26,15 @@
     /*
      * on document ready publish pubsub( 'document/ready' )
      */
+    
+    pubsub( 'document/ready' ).subscribe( function() {
+
+        fixednav.init( {
+            selector: '[data-section-desc]:visible',
+            minslides:3
+        } ); 
+
+    } );
 
     $( document ).ready( function() {
 
@@ -72,17 +81,11 @@
         pubsub( 'window/scroll' ).publish();
 
     } );
+
     
     var init = function() {
 
-        pubsub( 'document/ready' ).subscribe( function() {
-
-            fixednav.init( {
-                selector: '[data-section-desc]:visible',
-                minslides:3
-            } ); 
-
-        } );  
+         console.log( 'init' ); 
 
     }
     
