@@ -16,7 +16,7 @@ require(
     ) {
 		
         common.init();
-        pubsub( 'document/ready' ).subscribe( function() {
+        $(document).ready( function() {
              $('[contenteditable]').notebook();
 
         } );
