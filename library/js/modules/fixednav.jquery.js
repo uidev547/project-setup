@@ -9,7 +9,7 @@
     } else {
 
         // Browser global
-        root.cookies = factory( root.jQuery, root.pubsub );
+        root.fixednav = factory( root.jQuery, root.pubsub );
     }
 
 } )( this, function ( $, pubsub ) {

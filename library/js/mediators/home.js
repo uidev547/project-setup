@@ -14,9 +14,9 @@ require(
         fixednav
     ) {
 		common.init();
-        pubsub( 'document/ready' ).subscribe(function() {
+        pubsub( 'document/ready' ).subscribe( function() {
  
-            $( '#owl-demo' ).owlCarousel({
+            $( '#owl-demo' ).owlCarousel( {
                 items : 1,
                 lazyLoad : true,
                 navigation : true,
@@ -36,15 +36,9 @@ require(
                 'afterMove' : function() {
                     console.log( 'afterMove' );
                 }
-                
 
-            });
+            } );
 
-            fixednav.init( {
-                selector:"[data-section-desc]:visible",
-                minslides:3
-            } ); 
-
-        });  
+        } );  
     }
 );

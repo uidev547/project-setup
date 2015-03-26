@@ -3,15 +3,21 @@
     if ( typeof define === 'function' && define.amd ) {
 
         // AMD. Register as an anonymous module.
-        define( ['jquery', 'modules/pubsub'], factory );
-		
+        define( [ 
+                'jquery',
+                'modules/pubsub',
+                'modules/fixednav.jquery'
+            ],
+
+            factory );
+        
     } else {
 
         // Browser global
-        root.common = factory( root.jQuery, root.pubsub );
+        root.common = factory( root.jQuery, root.pubsub, root.fixednav );
     }
 
-} )( this,function( $, pubsub ) {
+} )( this,function( $, pubsub, fixednav ) {
     
     var resizeTimer
         , innerWidth
@@ -66,16 +72,23 @@
         pubsub( 'window/scroll' ).publish();
 
     } );
-	
-	var init = function() {
-		console.log( 'init' );
-	}
-	
-	return {
-		init: init
-	};
+    
+    var init = function() {
+
+        pubsub( 'document/ready' ).subscribe( function() {
+
+            fixednav.init( {
+                selector: '[data-section-desc]:visible',
+                minslides:3
+            } ); 
+
+        } );  
+
+    }
+    
+    return {
+        init: init
+    };
 
 
 } );
-
-
