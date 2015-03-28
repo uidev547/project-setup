@@ -76,7 +76,7 @@ define( [
 
                     $scope.lockComponent = function(  ) {
 
-                    }
+                    };
 
                 } 
             ] 
@@ -138,7 +138,7 @@ define( [
                                     return {
                                         template: 'componets-list.html',
                                         modalHeader: 'Please select component..'
-                                    }
+                                    };
                                 }
                             }
 
@@ -149,10 +149,10 @@ define( [
                             var component;
                             switch( common.data.name ) {
                                 case 'title-text-component': 
-                                            component = {
-                                                name: 'title-text-component',
-                                                editorTemplate : 'editor-title-text-component.html',
-                                            }
+                                    component = {
+                                        name: 'title-text-component',
+                                        editorTemplate : 'editor-title-text-component.html',
+                                    };
                                     break;
                             }
                             if( component ) {
@@ -212,7 +212,7 @@ define( [
 
                         } );
 
-                    }
+                    };
 
                     $scope.getComponetTemplate = function( component ) {
 
@@ -222,7 +222,7 @@ define( [
 
                         }
                         
-                    }
+                    };
 
 
 
@@ -245,7 +245,7 @@ define( [
 
                     $scope.ok = function () {
 
-                        $modalInstance.close( component );
+                        $modalInstance.close( );
 
                     };
 
@@ -276,7 +276,7 @@ define( [
 
                         
 
-                        $modalInstance.close( component );
+                        $modalInstance.close( );
 
                     };
 
@@ -298,7 +298,7 @@ define( [
                     restrict: 'A',
                     controller: 'sectionManagerCtrl'
 
-                }
+                };
 
            }
         )
@@ -311,7 +311,7 @@ define( [
                     restrict: 'A',
                     controller: 'editorManagerCtrl'
 
-                }
+                };
 
            }
         )
