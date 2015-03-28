@@ -87,7 +87,7 @@
 
          console.log( 'init' ); 
 
-    }
+    };
     
     return {
         init: init

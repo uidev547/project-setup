@@ -1,5 +1,5 @@
 
-;( function ( root, factory ) {
+( function ( root, factory ) {
 
     if ( typeof define === 'function' && define.amd ) {
 
@@ -25,17 +25,16 @@
         , targetEle
         , selectorEle
         , bullets
-        , settings
         , fnbc
         , bulletsTemplate
         , activeBulletEle
         ;
-    settings = {
+    var settings = {
         selector:'[data-section-desc]',
         minslides:3,
         minwidth:600,
         target:'html,body'
-    }
+    };
 
     /**
      * function : init
@@ -245,15 +244,15 @@
             bullet = fnbc.find( '[data-counter=' + $(ele).attr( 'counter' ) + ']' );
 
             if( scrolledAmount + 200 > topOffset && scrolledAmount < bottomOffset ) {
-                bullets.removeClass("active");
+                bullets.removeClass( 'active' );
                 activeBulletEle = bullet;
-                activeBulletEle.addClass("active");
+                activeBulletEle.addClass( 'active' );
 
             }
-            if( scrolledAmount==0 ) {
-                bullets.removeClass( "active" );
+            if( scrolledAmount === 0 ) {
+                bullets.removeClass( 'active' );
                 activeBulletEle = bullets.eq( 0 );
-                activeBulletEle.addClass("active");
+                activeBulletEle.addClass( 'active' );
             }
         });
 
@@ -268,6 +267,6 @@
     return{
         init:init,
         reinit:reinit
-    }
+    };
 } );
 

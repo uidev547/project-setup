@@ -39,7 +39,7 @@ define( [
 
                 bindNotebook( $(this) );
 
-            } )
+            } );
         
 
         } );
@@ -55,8 +55,8 @@ define( [
             bindModifyCheck : bindModifyCheck,
             bind: bindNotebook
 
-        }
+        };
 
 
     }
-)
+);
