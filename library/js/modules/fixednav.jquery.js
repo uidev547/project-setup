@@ -114,11 +114,11 @@
         bullets = $( '#fixed-nav-bullets' ).find( '.fixed-section-bullet' );
         activeBulletEle = bullets.eq(0);
 
-        if( count <= settings.minslides ) {
+        if( count >= settings.minslides ) {
 
-            fnbc.hide();
+            fnbc.removeClass( 'strict-hide' );
 
-        }
+        } 
 
     };
 
@@ -254,7 +254,6 @@
                 bullets.removeClass( "active" );
                 activeBulletEle = bullets.eq( 0 );
                 activeBulletEle.addClass("active");
-                
             }
         });
 

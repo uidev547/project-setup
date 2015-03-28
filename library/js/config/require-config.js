@@ -21,13 +21,24 @@ var require = {
          jquery.js defines its path as `jquery`. The following
          option allows us to locate it at a more logical path.
         */
-        'jquery': 'vendors/jquery'
+        'jquery': 'vendors/jquery',
+        'ui-bootstrap' : 'vendors/ui-bootstrap'
     },
 
     shim: {
         // The angular library does not implement AMD.
         'vendors/angular-custom': {
             exports: 'angular'
+        },
+        'bootstrap' : { 
+            'deps' : ['jquery'] 
+        },
+        'ui-bootstrap' : {
+            'deps' : [
+                'jquery',
+                'vendors/angular-custom'
+            ] 
         }
     }
+
 };

@@ -741,6 +741,12 @@
                             id = 'jqeditor-temparea',
                             range = utils.selection.save(),
                             tempArea = $('#' + id);
+                        if( e ) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                        
+
                         if (tempArea.length < 1) {
                             var body = $('body');
                             tempArea = $('<textarea></textarea>');
@@ -763,7 +769,7 @@
                             utils.selection.restore(range);
                             d.execCommand('delete');
                             d.execCommand('insertHTML', false, clipboardContent);
-                            events.change.call(this);
+                            events.change.call( elem[ 0 ] );
                         }, 500);
                     },
                     change: function(e) {

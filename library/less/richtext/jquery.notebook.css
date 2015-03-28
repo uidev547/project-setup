@@ -92,6 +92,8 @@
     font-size: 14pt;
     cursor: pointer;
     -webkit-font-smoothing: antialiased;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .jquery-notebook.bubble button.active {
@@ -104,6 +106,7 @@
 
 .jquery-notebook.bubble button.italic:after {
     content: "\f033";
+
 }
 
 .jquery-notebook.bubble button.underline:after {
@@ -160,4 +163,7 @@
     color:#fff;
     font-size: 14px;
     float: left;
+}
+textarea[id^=jquery-notebook]{
+    display: none;
 }

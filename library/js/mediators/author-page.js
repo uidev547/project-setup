@@ -1,25 +1,41 @@
 require(
     [
         'jquery',
-		'modules/common',
-        'vendors/owl.carousel',
-        'modules/pubsub',
-        'vendors/jquery.notebook'
+
+        'ui-bootstrap',
+        'vendors/angular-custom',
+        'modules/common',
+
+        'ng-modules/common',
+        'ng-modules/editor'
     ],
     function( 
         $,
-		common,
-        owl,
-        pubsub,
-        fixednav,
-        noteBook
+        uiBootstrap,
+        angular,
+        common,
+        ngCommon,
+        editor
     ) {
-		
-        common.init();
-        $(document).ready( function() {
-             $('[contenteditable]').notebook();
 
-        } );
+        common.init();
+        
+        function init() {
+
+
+            angular.module( 'App',
+                [
+                    'Editor',
+                    'ng.common'
+                ]
+            );
+            // Bootstrap application dynamically to `document` as there is no access to global header elements inside AEM.
+            angular.bootstrap( document, [ 'App' ] );
+
+
+        }
+
+        init();
 
     }
 );
