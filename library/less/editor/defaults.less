@@ -3,8 +3,37 @@
 	top: 0;
 	right: 0;
 }
-.section-container,.page-container {
-    position: relative;    
+
+.component-manager-class {
+    position: relative;
+    outline: dotted 4px #333;
+}
+.locked .editor-features{
+
+}
+.locked {
+    .component-manager-class {
+        .editor-features {
+            display: none;
+        }
+        outline: none;
+    }
+    .editor-features {
+        .glyphicon {
+            display: none;
+        }
+        .glyphicon-lock {
+            display: inline;
+            color: red;
+        }
+    }
+    
+    .hide-on-lock {
+        display: none;
+    }
+    &.component-manager-class {
+        outline: none;
+    }
 }
 
 .componet-section {

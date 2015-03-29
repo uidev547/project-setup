@@ -28,6 +28,7 @@
         , fnbc
         , bulletsTemplate
         , activeBulletEle
+        , isInitialized = false;
         ;
     var settings = {
         selector:'[data-section-desc]',
@@ -50,6 +51,7 @@
     var init = function init( usersetting ) {
 
         $.extend( true, settings, usersetting );
+        isInitialized = true;
         initVariables();       
         initMarkup();
         bindEvents();
@@ -76,13 +78,12 @@
         windowEle = $( window );
         windowHeight = windowEle.height();
         targetEle = $( settings.target );
-        selectorEle = $( settings.selector );
         fnbc = $( '#fixed-nav-bullets-container' );
 
     };
 
     var initMarkup = function initMarkup() {
-
+        selectorEle = $( settings.selector );
         handleBullets();        
 
     };
@@ -258,9 +259,16 @@
 
     };
 
-    var reinit =function reinit() {
+    var reinit =function reinit( usersetting ) {
+        if( isInitialized ) {
+            $.extend( true, settings, usersetting );
+            initMarkup();
+        } else {
+
+            init( usersetting );
+
+        }
         
-        console.log( 'reinit' );
 
     };
 

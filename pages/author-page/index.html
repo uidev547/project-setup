@@ -4,53 +4,8 @@
   <div class="base-layout">
     
     <div class="page-container" ng-controller="pageCtrl">
-      
-      <div class="editor-features">
-        <a class="glyphicon glyphicon-wrench" href="#" role="button" ng-click="openPageSettings( )">
-        </a>
-        <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent()">
-        </a>
-      </div>
-
-      <h1 ng-bind="data.pageTitle">
-        Page Title comes here
-      </h1>
-
-      <section class="section-container" ng-repeat="section in sections" section-manager>
-        <div class="editor-features">
-          <a class="glyphicon glyphicon-wrench" href="#" role="button" ng-click="openSectionSettings( section )">
-          </a>
-          <a class="glyphicon glyphicon-trash" href="#" role="button" ng-click="deleteComponent( section )">
-          </a>
-          <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( section )">
-          </a>
-        </div>
-        <div class="componet-section" ng-repeat="component in components">
-          <div ng-include="getComponetTemplate( component )">
-          </div>
-        </div>
-
-        <div class="text-center">
-          <a class="btn btn-primary btn-sm" href="#" role="button" ng-click="openComponets()">
-            <span class="glyphicon glyphicon-plus"></span>
-          </a>
-          <div ng-show="selected">Selection from a modal: {{ selected }}</div>
-        </div>
-      </section>
-
-
-      <div class="jumbotron">
-        <div class="text-center">
-          <a class="btn btn-primary btn-lg" href="#" role="button" ng-click="addNewSection()">
-            <span class="glyphicon glyphicon-plus"></span>
-          </a>
-          <div ng-show="selected">Selection from a modal: {{ selected }}</div>
-        </div>
-      </div>
+      <div component-manager component="component"></div>
     </div>
-
-
-
 
   </div>
 
@@ -58,31 +13,18 @@
   <!--#include virtual="footer-assets.html" -->
 
 
-<script type="text/ng-template" id="editorControllers.html">
-    <div class="modal-header">
-        <h3 class="modal-title">sectionSettings!</h3>
-    </div>
-    <div class="modal-body">
-        sectionSettings {{data.data}}
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">OK</button>
-        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-    </div>
-</script>
 
 <script type="text/ng-template" id="title-text-component.html">
-  <div class="title-text-component" editor-manager>
+  <div class="title-text-component">
     <div class="editor-features">
-      <a class="glyphicon glyphicon-pencil" href="#" role="button" ng-click="editComponent( component )">
+      <a class="glyphicon glyphicon-edit" href="#" role="button" ng-click="editComponent( $event, component )">
       </a>
       <a class="glyphicon glyphicon-trash" href="#" role="button" ng-click="deleteComponent( component )">
       </a>
       <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
       </a>
     </div>
-    <h2 ng-bind="component.data.title || 'section title here'">
-
+    <h2 ng-bind="component.data.title || 'title comes here'">
     </h2>
     <div class="rich-text-content">
       <p ng-bind="component.data.description || 'description'">
@@ -90,34 +32,82 @@
     </div>
   </div>
 </script>
-
-
-<script type="text/ng-template" id="component-editor-popup.html">
-  <div class="modal-header">
-      <h3 class="modal-title">Editor !!!!</h3>
-  </div>
-  <div class="modal-body">
-    <div ng-include="component.editorTemplate"></div>
-  </div>
-  <div class="modal-footer">
-      <button class="btn btn-primary" ng-click="ok()">OK</button>
-      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-  </div>
-</script>
-
 <script type="text/ng-template" id="editor-title-text-component.html">
 
   <div class="form-horizontal">
     <div class="form-group">
       <label for="id-editor-title-text-title" class="col-sm-2 control-label">Title</label>
       <div class="col-sm-10">
-        <input type="text" ng-model="component.data.title" class="form-control" id="id-editor-title-text-title"  placeholder="Title">
+        <input type="text" ng-model="common.data.title" class="form-control" id="id-editor-title-text-title"  placeholder="Title">
       </div>
     </div>
     <div class="form-group">
       <label for="id-editor-title-text-description" class="col-sm-2 control-label">Description</label>
       <div class="col-sm-10">
-        <textarea ng-modal="" ng-model="component.data.description" class="form-control" id="id-editor-title-text-description" placeholder="description">
+        <textarea ng-model="common.data.description" class="form-control" id="id-editor-title-text-description" placeholder="description">
+        </textarea>
+      </div>
+    </div>
+  </div>
+</script>
+
+<script type="text/ng-template" id="section-component.html">
+  <section class="section-container" add-attr>
+      <div class="editor-features">
+        <a class="glyphicon glyphicon-edit" href="#" role="button" ng-click="editComponent( $event, component )">
+        </a>
+        <a class="glyphicon glyphicon-trash" href="#" role="button" ng-click="deleteComponent( component )">
+        </a>
+        <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
+        </a>
+      </div>
+
+
+      <h2 ng-bind="component.data.title || 'section title here'">
+      </h2>
+      <div class="rich-text-content">
+        <p ng-bind="component.data.description || 'description'">
+        </p>
+      </div>
+
+      <div class="component-section" ng-repeat="item in component.components" >
+        <div component="item" parent-component="component.components" component-manager>
+        </div>
+      </div>
+      <div class="text-center hide-on-lock" >
+        <a class="btn btn-primary btn-sm" href="#" role="button" ng-click="addNewComponent( components )">
+          <span class="glyphicon glyphicon-plus"></span>
+        </a>
+        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+      </div>
+  </section>
+</script>
+
+<script type="text/ng-template" id="editor-section-component.html">
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label for="id-editor-section-title" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" ng-model="common.data.title" class="form-control" id="id-editor-section-title"  placeholder="Title">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id-editor-section-short-description" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input type="text" ng-model="common.data.shortDescription" class="form-control" id="id-editor-section-short-description"  placeholder="short-sescription">
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="checkbox">
+          <label><input type="checkbox" ng-model="common.data.arrowRequired">Want arrow for next section</label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="id-editor-section-description" class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-10">
+        <textarea ng-model="common.data.description" class="form-control" id="id-editor-section-description" placeholder="description">
         </textarea>
       </div>
     </div>
@@ -125,33 +115,13 @@
 </script>
 
 
-<script type="text/ng-template" id="sectionSettings.html">
-  
-  <div class="form-horizontal">
-    <div class="form-group">
-      <label for="id-sectionSettings-short-description" class="col-sm-2 control-label">Title</label>
-      <div class="col-sm-10">
-        <input type="text" ng-model="section.data.shortDescription" class="form-control" id="id-sectionSettings-short-description"  placeholder="short-sescription">
-      </div>
-    </div>
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="checkbox">
-          <label><input type="checkbox" ng-model="section.data.arrowRequired">Want arrow for next section</label>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</script>
-
 
 <script type="text/ng-template" id="common-pop-up.html">
   <div class="modal-header">
       <h3 ng-bind="common.modalHeader" class="modal-title"></h3>
   </div>
-  <div class="modal-body">
-    <div ng-if="common.template" ng-include="common.template"></div>
+  <div class="modal-body"  ng-show="common.popUpBodytemplate || common.modalBody">
+    <div ng-if="common.popUpBodytemplate" ng-include="common.popUpBodytemplate"></div>
     <div ng-if="common.modalBody" ng-bind="common.modalBody"></div>
   </div>
   <div class="modal-footer">
@@ -160,26 +130,55 @@
   </div>
 </script>
 
-<script type="text/ng-template" id="pageSettings.html">
+
+
+<script type="text/ng-template" id="pick-componets-list.html">
+  <div class="form-horizontal">
+    <div class="checkbox" ng-hide="common.level>1">
+      <label><input type="radio" ng-model="common.data.name" name="component" value="section-component"> Section Component </label>
+    </div>
+    <div class="checkbox">
+      <label><input type="radio" ng-model="common.data.name" name="component" value="title-text-component"> title text component </label>
+    </div>
+    
+  </div>
+</script>
+
+
+<script type="text/ng-template" id="editor-page-component.html">
   <div class="form-horizontal">
     <div class="form-group">
-      <label for="id-pageSettings-title" class="col-sm-2 control-label">Title</label>
+      <label for="id-editor-page-component-title" class="col-sm-2 control-label">Title</label>
       <div class="col-sm-10">
-        <input type="text" ng-model="common.data.pageTitle" class="form-control" id="id-pageSettings-title"  placeholder="page title">
+        <input type="text" ng-model="common.data.pageTitle" class="form-control" id="id-editor-page-component-title"  placeholder="Title">
       </div>
     </div>
   </div>
 </script>
 
+<script type="text/ng-template" id="page-component.html">
+      <div class="editor-features">
+        <a class="glyphicon glyphicon-edit" href="#" role="button" ng-click="editComponent( $event, component )">
+        </a>
+        <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
+        </a>
+      </div>
 
-<script type="text/ng-template" id="componets-list.html">
-  <div class="form-horizontal">
-    <div class="checkbox">
-      <label><input type="radio" ng-model="common.data.name" name="component" value="title-text-component"> title text component </label>
-    </div>
-  </div>
+      <h1 ng-bind="component.data.pageTitle">
+        Page Title comes here
+      </h1>
+      <div ng-repeat="item in component.components" >
+
+        <div component-manager component="item" parent-component="component.components" ></div>
+      </div>
+      <div class="jumbotron hide-on-lock">
+        <div class="text-center" >
+          <a class="btn btn-primary btn-lg" href="#" role="button" ng-click="addNewComponent()">
+            <span class="glyphicon glyphicon-plus"></span>
+          </a>
+        </div>
+      </div>
 </script>
-
 
 </body>
 </html>
