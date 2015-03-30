@@ -1,6 +1,7 @@
 <!--#include virtual="head-assets.html" -->
 <body>
 	<!--#include virtual="../base/header/index.html" -->
+  <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
   <div class="base-layout">
     
     <div class="page-container" ng-controller="pageCtrl">
@@ -65,9 +66,7 @@
 
       <h2 ng-bind="component.data.title || 'section title here'">
       </h2>
-      <div class="rich-text-content">
-        <p ng-bind="component.data.description || 'description'">
-        </p>
+      <div class="rich-text-content" ng-bind-html="component.data.description || 'description'">
       </div>
 
       <div class="component-section" ng-repeat="item in component.components" >
@@ -107,9 +106,9 @@
     <div class="form-group">
       <label for="id-editor-section-description" class="col-sm-2 control-label">Description</label>
       <div class="col-sm-10">
-        <textarea ng-model="common.data.description" class="form-control" id="id-editor-section-description" placeholder="description">
-        </textarea>
+        <div text-angular="text-angular" name="editor-section-description" ng-model="common.data.description"></div>
       </div>
+      
     </div>
   </div>
 </script>

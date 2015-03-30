@@ -33,6 +33,17 @@ var require = {
         'bootstrap' : { 
             'deps' : ['jquery'] 
         },
+        'vendors/textAngular.min' : {
+            'deps' : [
+                'vendors/angular-custom',
+                'vendors/angular-sanitize'
+            ] 
+        },
+        'vendors/angular-sanitize':{
+            'deps' : [
+                'vendors/angular-custom'
+            ]
+        },
         'ui-bootstrap' : {
             'deps' : [
                 'jquery',

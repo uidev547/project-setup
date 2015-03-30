@@ -3,6 +3,7 @@ define( [
         
         'jquery',
         'vendors/angular-custom',
+        'vendors/textAngular.min',
         'directives/angular-notebook',
         'modules/fixednav.jquery'
 
@@ -10,6 +11,7 @@ define( [
     function(
         $,
         angular,
+        ngRichtext,
         ngNotebook,
         fixednav
     ) {
@@ -24,7 +26,7 @@ define( [
 
             }, 100 ); 
         }
-        return angular.module( 'Editor', [ 'ng.notebook' ] )
+        return angular.module( 'Editor', [ 'ng.notebook', 'textAngular' ] )
         .controller( 'pageCtrl',
             [ 
                 '$scope',
