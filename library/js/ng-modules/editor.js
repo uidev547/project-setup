@@ -26,6 +26,8 @@ define( [
 
             }, 100 ); 
         }
+
+
         return angular.module( 'Editor', [ 'ng.notebook', 'textAngular' ] )
         .controller( 'pageCtrl',
             [ 
@@ -43,15 +45,13 @@ define( [
 
                     $scope.component = {
 
-                        data: {
-                            pageTitle: 'Article title come here',
-                        },
                         name: 'page-component',
                         popUpBodytemplate : 'editor-page-component.html',
                         modalHeader: 'page level setitings',
                         level: 1
                         
                     };
+
 
 
                 } 
@@ -68,7 +68,7 @@ define( [
                         component : '=',
                         parentComponent : '='
                     },
-                    template:'<div class="component-manager-class" ng-dblclick="editComponent( $event, component )" ng-include="getComponentTemplate( component )" ng-class="{\'locked\':component.locked}"></div>',
+                    template:'<div class="component-manager-class" ng-include="getComponentTemplate( component )" ng-class="{\'locked\':component.locked}"></div>',
                     controller: [   
                         
                         '$scope',
@@ -82,13 +82,23 @@ define( [
                             $log
 
                         ) { 
-                            //console.log( $scope.component );
 
                             $scope.addNewComponent = function() {
+
+                                component = {
+                                    name: 'section-component',
+                                    popUpBodytemplate : 'editor-section-component.html',
+                                    //template : 'section-component.html',
+                                    modalHeader: 'section component settings',
+                                    level: $scope.component.level + 1
+                                };
+                                $scope.component.components = $scope.component.components || [];
+                                $scope.component.components.push( component );
                                
-                                var modalInstance = $modal.open( {
+                                /*var modalInstance = $modal.open( {
                                     templateUrl: 'common-pop-up.html',
                                     controller: 'commonPopupCtrl',
+                                    size: 'lg',
                                     resolve: {
                                         data: function () {
                                                   return {
@@ -146,7 +156,7 @@ define( [
                                   
                                   $log.info( 'componentsPopupCtrl Modal dismissed at: ' + new Date() );
 
-                                } );
+                                } );*/
 
                             };
 

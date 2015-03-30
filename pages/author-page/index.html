@@ -2,13 +2,29 @@
 <body>
 	<!--#include virtual="../base/header/index.html" -->
   <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
-  <div class="base-layout">
+  
     
-    <div class="page-container" ng-controller="pageCtrl">
-      <div component-manager component="component"></div>
+  <div class="page-container" ng-controller="pageCtrl">
+    <div class="component-base">
+      <div class="editor-features">
+        <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
+        </a>
+        <a ng-if="!component.isPreviewMode" class="glyphicon glyphicon-eye-open" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
+        </a>
+        <a ng-if="component.isPreviewMode" class="glyphicon glyphicon-edit" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
+        </a>
+      </div>
+      <h1 ng-if="component.isPreviewMode" class="page-title h1" ng-bind="component.data.pageTitle"></h1>
+      <textarea ng-if="!component.isPreviewMode" class="page-title h1" ng-model="component.data.pageTitle" placeholder="Page Title comes here"></textarea>
     </div>
+    
 
+    <div  class="component-base" ng-repeat="item in component.components" >
+      <div component-manager component="item" parent-component="component.components"></div>
+    </div>
+    <div class="jumbotron hide-on-lock" component-manager component="component"></div>
   </div>
+
 
   <!--#include virtual="../base/footer/index.html" -->
   <!--#include virtual="footer-assets.html" -->
@@ -16,7 +32,7 @@
 
 
 <script type="text/ng-template" id="title-text-component.html">
-  <div class="title-text-component">
+  /*<div class="title-text-component">
     <div class="editor-features">
       <a class="glyphicon glyphicon-edit" href="#" role="button" ng-click="editComponent( $event, component )">
       </a>
@@ -31,10 +47,10 @@
       <p ng-bind="component.data.description || 'description'">
       </p>
     </div>
-  </div>
+  </div>*/
 </script>
 <script type="text/ng-template" id="editor-title-text-component.html">
-
+/*
   <div class="form-horizontal">
     <div class="form-group">
       <label for="id-editor-title-text-title" class="col-sm-2 control-label">Title</label>
@@ -49,35 +65,26 @@
         </textarea>
       </div>
     </div>
-  </div>
+  </div>*/
 </script>
 
 <script type="text/ng-template" id="section-component.html">
   <section class="section-container" add-attr>
       <div class="editor-features">
-        <a class="glyphicon glyphicon-edit" href="#" role="button" ng-click="editComponent( $event, component )">
+        <a class="glyphicon glyphicon-wrench" href="#" role="button" ng-click="editComponent( $event, component )">
         </a>
         <a class="glyphicon glyphicon-trash" href="#" role="button" ng-click="deleteComponent( component )">
         </a>
         <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
         </a>
-      </div>
-
-
-      <h2 ng-bind="component.data.title || 'section title here'">
-      </h2>
-      <div class="rich-text-content" ng-bind-html="component.data.description || 'description'">
-      </div>
-
-      <div class="component-section" ng-repeat="item in component.components" >
-        <div component="item" parent-component="component.components" component-manager>
-        </div>
-      </div>
-      <div class="text-center hide-on-lock" >
-        <a class="btn btn-primary btn-sm" href="#" role="button" ng-click="addNewComponent( components )">
-          <span class="glyphicon glyphicon-plus"></span>
+        <a ng-if="!component.isPreviewMode" class="glyphicon glyphicon-eye-open" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
         </a>
-        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
+        <a ng-if="component.isPreviewMode" class="glyphicon glyphicon-edit" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
+        </a>
+      </div>
+      <div class="rich-text-content" >
+        <div ng-if="component.isPreviewMode" ng-bind-html="component.data.description"></div>
+        <div ng-if="!component.isPreviewMode" text-angular="text-angular" name="section-description" ng-model="component.data.description"></div>
       </div>
   </section>
 </script>
@@ -85,15 +92,9 @@
 <script type="text/ng-template" id="editor-section-component.html">
   <div class="form-horizontal">
     <div class="form-group">
-      <label for="id-editor-section-title" class="col-sm-2 control-label">Title</label>
-      <div class="col-sm-10">
-        <input type="text" ng-model="common.data.title" class="form-control" id="id-editor-section-title"  placeholder="Title">
-      </div>
-    </div>
-    <div class="form-group">
       <label for="id-editor-section-short-description" class="col-sm-2 control-label">Title</label>
       <div class="col-sm-10">
-        <input type="text" ng-model="common.data.shortDescription" class="form-control" id="id-editor-section-short-description"  placeholder="short-sescription">
+        <input type="text" ng-model="common.data.shortDescription" class="form-control"  id="id-editor-section-short-description"  placeholder="short-sescription">
       </div>
     </div>
     <div class="form-group">        
@@ -102,13 +103,6 @@
           <label><input type="checkbox" ng-model="common.data.arrowRequired">Want arrow for next section</label>
         </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="id-editor-section-description" class="col-sm-2 control-label">Description</label>
-      <div class="col-sm-10">
-        <div text-angular="text-angular" name="editor-section-description" ng-model="common.data.description"></div>
-      </div>
-      
     </div>
   </div>
 </script>
@@ -132,7 +126,7 @@
 
 
 <script type="text/ng-template" id="pick-componets-list.html">
-  <div class="form-horizontal">
+  /*<div class="form-horizontal">
     <div class="checkbox" ng-hide="common.level>1">
       <label><input type="radio" ng-model="common.data.name" name="component" value="section-component"> Section Component </label>
     </div>
@@ -140,36 +134,24 @@
       <label><input type="radio" ng-model="common.data.name" name="component" value="title-text-component"> title text component </label>
     </div>
     
-  </div>
+  </div>*/
+
 </script>
 
 
 <script type="text/ng-template" id="editor-page-component.html">
-  <div class="form-horizontal">
+  /*<div class="form-horizontal">
     <div class="form-group">
       <label for="id-editor-page-component-title" class="col-sm-2 control-label">Title</label>
       <div class="col-sm-10">
         <input type="text" ng-model="common.data.pageTitle" class="form-control" id="id-editor-page-component-title"  placeholder="Title">
       </div>
     </div>
-  </div>
+  </div>*/
 </script>
 
 <script type="text/ng-template" id="page-component.html">
-      <div class="editor-features">
-        <a class="glyphicon glyphicon-edit" href="#" role="button" ng-click="editComponent( $event, component )">
-        </a>
-        <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
-        </a>
-      </div>
 
-      <h1 ng-bind="component.data.pageTitle">
-        Page Title comes here
-      </h1>
-      <div ng-repeat="item in component.components" >
-
-        <div component-manager component="item" parent-component="component.components" ></div>
-      </div>
       <div class="jumbotron hide-on-lock">
         <div class="text-center" >
           <a class="btn btn-primary btn-lg" href="#" role="button" ng-click="addNewComponent()">
@@ -177,6 +159,8 @@
           </a>
         </div>
       </div>
+
+
 </script>
 
 </body>
