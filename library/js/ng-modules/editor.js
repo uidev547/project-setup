@@ -1,3 +1,35 @@
+!function() {
+
+    // http://hacks.mozilla.org/2009/06/localstorage/
+    // http://stackoverflow.com/questions/14555347/html5-localstorage-error-with-safari-quota-exceeded-err-dom-exception-22-an
+    window.Storage.prototype.setObject = function( key, value ) {
+
+        try {
+            
+            this.setItem( key, JSON.stringify( value ) );
+            return true;
+
+        } catch( e ) {
+
+            return false;
+        }
+
+    };
+     
+    window.Storage.prototype.getObject = function( key ) {
+        
+        try {
+
+            var item = JSON.parse( this.getItem( key ) );
+            return item;
+
+        } catch( e ) {
+
+            return false;
+        }
+    };
+
+}();
 
 define( [ 
         
@@ -42,14 +74,37 @@ define( [
                     $log
 
                 ) {
-
-                    $scope.component = {
+                    var comp = {
 
                         name: 'page-component',
                         popUpBodytemplate : 'editor-page-component.html',
                         modalHeader: 'page level setitings',
                         level: 1
                         
+                    };
+
+                    $scope.component = sessionStorage.getObject( 'editors-data' ) || comp;
+
+
+                    $scope.$watch( 'component', function( newValue, oldValue ) {
+                        if( !oldValue ) {
+                            return;
+                        }
+                        sessionStorage.setObject( 'editors-data', $scope.component );
+
+                    }, true );
+
+
+                    $scope.lockComponent  = function( component ) {
+                        
+                        component.locked = !component.locked;
+
+                    };
+
+                    $scope.isPreviewMode = function( component ) {
+                        
+                        return component.locked ||  component.isPreviewMode;
+
                     };
 
 
@@ -279,6 +334,27 @@ define( [
                                 component.locked = !component.locked;
 
                             };
+
+                            $scope.isPreviewMode = function( component ) {
+                                var pv = component.locked ||  component.isPreviewMode;
+                                if( pv ) return true;
+                                if( component.level === 1 ) {
+                                    return false;
+                                }
+
+                                var pc = $scope.$parent;
+                                for( ; pc && pc.component && pc.component.level >=1 ;) {
+                                  
+                                    if( pc.component.locked || pc.component.isPreviewMode ) {
+                                         return true
+                                    }
+                                    
+                                    pc = pc.$parent;
+
+                                }
+                                return false;
+                            };
+
 
                         }
                     ]

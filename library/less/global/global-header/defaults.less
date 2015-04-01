@@ -1,11 +1,18 @@
 .global-header {
+    
+    overflow: auto;
+    height: 60px;
+}
+.global-header-content {
     padding: 20px;
     background: @header-background-color;
-    overflow: auto;
     color: @header-color;
     a {
         color: @header-color;
     }
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
 }
 .logo-section {
     float: left;

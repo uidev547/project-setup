@@ -1,5 +1,5 @@
 .component-base {
-    padding: 0 100px 0 100px;
+    padding: 0 200px 0 200px;
     position: relative;
 }
 .editor-features {
@@ -8,16 +8,21 @@
 	right: 100px;
 }
 
-.locked .editor-features{
 
+.page-title {
+    display:block;
+    border: 0;
+    height: auto;
+    background: none;
+    resize: none;
+    width: 100%;
 }
+
+.show-on-lock {
+    display: none;
+}
+
 .locked {
-    .component-manager-class {
-        .editor-features {
-            display: none;
-        }
-        outline: none;
-    }
     .editor-features {
         .glyphicon {
             display: none;
@@ -31,8 +36,11 @@
     .hide-on-lock {
         display: none;
     }
-    &.component-manager-class {
-        outline: none;
+    .show-on-lock {
+        display: block;
+    }
+    .component-manager-class .editor-features {
+        display: none;
     }
 }
 
@@ -53,10 +61,3 @@
     }
 }
 
-.page-title {
-    width: 100%;
-    border: 0;
-    height: auto;
-    background: none;
-    resize: none;
-}

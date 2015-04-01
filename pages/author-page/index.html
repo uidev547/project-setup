@@ -4,18 +4,15 @@
   <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.min.css'>
   
     
-  <div class="page-container" ng-controller="pageCtrl">
+  <div class="page-container" ng-controller="pageCtrl" ng-class="{'locked':component.locked}">
     <div class="component-base">
       <div class="editor-features">
         <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
         </a>
-        <a ng-if="!component.isPreviewMode" class="glyphicon glyphicon-eye-open" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
-        </a>
-        <a ng-if="component.isPreviewMode" class="glyphicon glyphicon-edit" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
         </a>
       </div>
-      <h1 ng-if="component.isPreviewMode" class="page-title h1" ng-bind="component.data.pageTitle"></h1>
-      <textarea ng-if="!component.isPreviewMode" class="page-title h1" ng-model="component.data.pageTitle" placeholder="Page Title comes here"></textarea>
+      <h1  class="page-title h1 show-on-lock" ng-bind="component.data.pageTitle"></h1>
+      <textarea class="page-title h1 hide-on-lock" ng-model="component.data.pageTitle" placeholder="Page Title comes here"></textarea>
     </div>
     
 
@@ -77,14 +74,10 @@
         </a>
         <a class="glyphicon glyphicon-lock" href="#" role="button" ng-click="lockComponent( component )">
         </a>
-        <a ng-if="!component.isPreviewMode" class="glyphicon glyphicon-eye-open" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
-        </a>
-        <a ng-if="component.isPreviewMode" class="glyphicon glyphicon-edit" href="#" role="button" ng-click="component.isPreviewMode = !component.isPreviewMode">
-        </a>
       </div>
       <div class="rich-text-content" >
-        <div ng-if="component.isPreviewMode" ng-bind-html="component.data.description"></div>
-        <div ng-if="!component.isPreviewMode" text-angular="text-angular" name="section-description" ng-model="component.data.description"></div>
+        <div ng-bind-html="component.data.description" class="show-on-lock"></div>
+        <div text-angular="text-angular" class="hide-on-lock" name="section-description" ng-model="component.data.description"></div>
       </div>
   </section>
 </script>
@@ -152,7 +145,7 @@
 
 <script type="text/ng-template" id="page-component.html">
 
-      <div class="jumbotron hide-on-lock">
+      <div class="jumbotron">
         <div class="text-center" >
           <a class="btn btn-primary btn-lg" href="#" role="button" ng-click="addNewComponent()">
             <span class="glyphicon glyphicon-plus"></span>
